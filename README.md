@@ -3,9 +3,10 @@
 - Gitkeep file
 - Gitignore generators
 - Utility folder
-- Prettierc stup
+- Prettier stup
 - Iffi js concept
 - -r dotenv/config --experimental-json-modules
 - cookie parser
 - urlencoded
 - Higher order function
+- Aggregation Pipeline
