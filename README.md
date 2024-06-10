@@ -13,3 +13,6 @@
 - Bcrypt
 - Mongoose Hooks
 - cryptography
+- cloudinary
+- file system
+  
