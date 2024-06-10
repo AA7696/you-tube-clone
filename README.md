@@ -10,3 +10,6 @@
 - urlencoded
 - Higher order function
 - Aggregation Pipeline
+- Bcrypt
+- Mongoose Hooks
+- cryptography
