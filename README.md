@@ -15,4 +15,8 @@
 - cryptography
 - cloudinary
 - file system
+- import and export
+- imlicit and explicit return 
+- operators in mongoose
+- chaining in js
   

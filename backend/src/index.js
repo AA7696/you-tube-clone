@@ -11,10 +11,6 @@ dotenv.config({
 
 
 
-
-
-
-
 const start = async () =>{
     try {
         await connectDB(process.env.MONGODB_URI)

@@ -5,8 +5,8 @@ import fs from 'fs'
     // Configuration
 cloudinary.config({ 
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
-    api_key: CLOUDINARY_API_KEY, 
-    api_secret: CLOUDINARY_API_SECRET // Click 'View Credentials' below to copy your API secret
+    api_key: process.env.CLOUDINARY_API_KEY, 
+    api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View Credentials' below to copy your API secret
 });
 
 
@@ -18,7 +18,8 @@ const uploadOnCloudinary = async (loaclfile) =>{
             resource_type: "auto"
         })
 
-        console.log("success");
+
+        fs.unlinkSync(loaclfile)
 
         return response;
 
