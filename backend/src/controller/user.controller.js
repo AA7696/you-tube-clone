@@ -6,6 +6,21 @@ import {uploadOnCloudinary} from '../utils/cloudinary.js'
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 
+const generateAccessAndRefresToken = async(userId)=> {
+    try {
+        const user = await User.findById(userId)
+        const accesToken = user.genrateAccessToken()
+        const refreshToken = user.genrateRefreshToken()
+
+        user.refreshToken = refreshToken;
+        await user.save({validateBeforeState: false})  // validate before save
+
+        return {accesToken, refreshToken}
+    } catch (error) {
+        throw new ApiErrors(500, "Something went wrong while geting tokens")
+    }
+}
+
 const registerUser = asyncHandeler(async (req,res) =>{
    // get user detils
    // validation
@@ -58,7 +73,6 @@ if(!avatar){
 }
 
 
-
 const user = await User.create({
     fullname,
     avatar: avatar.url,
@@ -78,15 +92,48 @@ if (!createduser) {
 }
 
 
-
-
-
-
- 
-
    res.status(200).json(
     new ApiResponse(200, createduser, "User registration successfull")
    )
 })
 
-export default registerUser
+const loginUser = asyncHandeler(async (req,res) => {
+   // req body -> data
+   // username or email
+   // find the user
+   // password check 
+   // access and refresh token
+   // send them in cookie and success res
+
+   const {email, username, password} = req.body
+
+   if (!username || !email) {
+       throw new ApiErrors(400, "username or email is required")
+   }
+
+    const existedUser = await User.findOne({
+        $or: [{username}, {email}]
+    })
+
+    if (!existedUser) {
+        throw new ApiErrors(404, "User does not exist Please Register your self first")
+    }
+
+    const isPasswordValid = await existedUser.isPasswordCorrect(password)
+
+    if (!isPasswordValid) {
+        throw new ApiErrors(401, "Invalid Password")
+    }
+
+    const {accesToken, refreshToken} = await generateAccessAndRefresToken(existedUser._id)
+
+    const loggesInUser  = await User.findById(user._id)
+
+    // cookie code
+
+    
+
+
+})
+
+export default  {registerUser , loginUser}

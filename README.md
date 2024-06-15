@@ -17,6 +17,6 @@
 - file system
 - import and export
 - imlicit and explicit return 
-- operators in mongoose
+- operators in mongoDB
 - chaining in js
   
